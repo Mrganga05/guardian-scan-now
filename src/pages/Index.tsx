@@ -2,12 +2,15 @@ import { motion } from "framer-motion";
 import { Shield, Scan, AlertTriangle, ArrowRight, Smartphone, Hospital, Siren, CheckCircle, User, Droplets, AlertOctagon, Heart, Phone, MapPin, Clock, MapPinned, PhoneCall, Volume2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import NavBar from "@/components/landing/NavBar";
+import FooterSection from "@/components/landing/FooterSection";
 
 const Index = () => {
   const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-background">
+      <NavBar />
       {/* Background effects */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-emergency/5 blur-[120px]" />
@@ -438,6 +441,8 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      <FooterSection />
     </div>
   );
 };
