@@ -308,15 +308,37 @@ const Index = () => {
                     <p className="font-mono text-xs text-muted-foreground tracking-widest uppercase mb-3 flex items-center gap-2">
                       <MapPin className="w-3.5 h-3.5 text-emergency" /> Nearest Emergency Services · Kakinada, AP
                     </p>
-                    <div className="flex items-center justify-between p-4 rounded-xl border border-border bg-secondary/30">
-                      <div className="flex items-center gap-3">
-                        <span className="text-lg">🏥</span>
-                        <div>
-                          <p className="font-medium text-sm">Government General Hospital</p>
-                          <p className="text-xs text-muted-foreground">1.2 km away</p>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between p-4 rounded-xl border border-border bg-secondary/30">
+                        <div className="flex items-center gap-3">
+                          <span className="text-lg">🏥</span>
+                          <div>
+                            <p className="font-medium text-sm">Government General Hospital</p>
+                            <p className="text-xs text-muted-foreground">1.2 km away</p>
+                          </div>
                         </div>
+                        <span className="px-3 py-1 rounded-full bg-safe/15 text-safe font-mono text-xs font-bold">4 min</span>
                       </div>
-                      <span className="px-3 py-1 rounded-full bg-safe/15 text-safe font-mono text-xs font-bold">4 min</span>
+                      <div className="flex items-center justify-between p-4 rounded-xl border border-border bg-secondary/30">
+                        <div className="flex items-center gap-3">
+                          <span className="text-lg">🚑</span>
+                          <div>
+                            <p className="font-medium text-sm">Kakinada Ambulance</p>
+                            <p className="text-xs text-muted-foreground">0.8 km away</p>
+                          </div>
+                        </div>
+                        <span className="px-3 py-1 rounded-full bg-safe/15 text-safe font-mono text-xs font-bold">2 min</span>
+                      </div>
+                      <div className="flex items-center justify-between p-4 rounded-xl border border-border bg-secondary/30">
+                        <div className="flex items-center gap-3">
+                          <span className="text-lg">🚔</span>
+                          <div>
+                            <p className="font-medium text-sm">Town Police Station</p>
+                            <p className="text-xs text-muted-foreground">1.8 km away</p>
+                          </div>
+                        </div>
+                        <span className="px-3 py-1 rounded-full bg-safe/15 text-safe font-mono text-xs font-bold">6 min</span>
+                      </div>
                     </div>
                   </div>
                 </div>
