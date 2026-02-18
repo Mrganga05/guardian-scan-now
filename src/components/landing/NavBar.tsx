@@ -33,14 +33,11 @@ const NavBar = () => {
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
-          {["Features", "How It Works", "Pricing"].map((item) => (
+          {["Features", "The Process", "How It Works"].map((item) => (
             <a key={item} href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               {item}
             </a>
           ))}
-          <Button size="sm" className="bg-emergency hover:bg-emergency-glow text-primary-foreground font-display" onClick={() => navigate("/auth")}>
-            Get Started
-          </Button>
         </div>
 
         {/* Mobile toggle */}
@@ -59,14 +56,11 @@ const NavBar = () => {
             className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border overflow-hidden"
           >
             <div className="container mx-auto px-6 py-6 flex flex-col gap-4">
-              {["Features", "How It Works", "Pricing"].map((item) => (
+              {["Features", "The Process", "How It Works"].map((item) => (
                 <a key={item} href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors py-2">
                   {item}
                 </a>
               ))}
-              <Button className="bg-emergency hover:bg-emergency-glow text-primary-foreground font-display w-full" onClick={() => navigate("/auth")}>
-                Get Started
-              </Button>
             </div>
           </motion.div>
         )}
