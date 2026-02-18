@@ -296,11 +296,11 @@ const Index = () => {
                         transition={{ duration: 3, repeat: Infinity }}
                       >
                         <QRCodeSVG
-                          value="https://safescan.app/emergency"
+                          value={"🚨 EMERGENCY PROFILE\n👤 Arjun Krishna\n🩸 O+ Blood\n⚠️ Penicillin Allergy\n💊 Diabetic\n💚 Organ Donor\n📞 Priya: +91 98765 43210\n📞 Dr. Rao: +91 98001 12345\n\nNo internet needed"}
                           size={120}
                           bgColor="hsl(0, 0%, 95%)"
                           fgColor="hsl(240, 20%, 4%)"
-                          level="H"
+                          level="L"
                         />
                       </motion.div>
 
