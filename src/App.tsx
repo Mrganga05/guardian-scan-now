@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import ProfileForm from "./pages/ProfileForm";
 import QRCodePage from "./pages/QRCodePage";
 import SOSMode from "./pages/SOSMode";
+import EmergencyView from "./pages/EmergencyView";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -21,6 +22,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/profile" element={<ProfileForm />} />
           <Route path="/qr" element={<QRCodePage />} />
+          <Route path="/emergency" element={<EmergencyView />} />
           <Route path="/sos" element={<SOSMode />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
