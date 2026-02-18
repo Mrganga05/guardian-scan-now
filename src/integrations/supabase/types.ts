@@ -14,7 +14,164 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      emergency_contacts: {
+        Row: {
+          created_at: string
+          id: string
+          is_primary: boolean | null
+          name: string
+          phone: string
+          relationship: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_primary?: boolean | null
+          name: string
+          phone: string
+          relationship?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_primary?: boolean | null
+          name?: string
+          phone?: string
+          relationship?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      emergency_tokens: {
+        Row: {
+          created_at: string
+          expires_at: string
+          id: string
+          token: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          expires_at?: string
+          id?: string
+          token: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string
+          id?: string
+          token?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      medical_info: {
+        Row: {
+          allergies: string[] | null
+          conditions: string[] | null
+          created_at: string
+          id: string
+          medications: string[] | null
+          notes: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          allergies?: string[] | null
+          conditions?: string[] | null
+          created_at?: string
+          id?: string
+          medications?: string[] | null
+          notes?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          allergies?: string[] | null
+          conditions?: string[] | null
+          created_at?: string
+          id?: string
+          medications?: string[] | null
+          notes?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          blood_type: string | null
+          created_at: string
+          date_of_birth: string | null
+          full_name: string | null
+          id: string
+          organ_donor: boolean | null
+          photo_url: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          blood_type?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          full_name?: string | null
+          id?: string
+          organ_donor?: boolean | null
+          photo_url?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          blood_type?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          full_name?: string | null
+          id?: string
+          organ_donor?: boolean | null
+          photo_url?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      scan_logs: {
+        Row: {
+          id: string
+          scanned_at: string
+          scanner_ip: string | null
+          scanner_location: string | null
+          token_id: string | null
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          scanned_at?: string
+          scanner_ip?: string | null
+          scanner_location?: string | null
+          token_id?: string | null
+          user_id: string
+        }
+        Update: {
+          id?: string
+          scanned_at?: string
+          scanner_ip?: string | null
+          scanner_location?: string | null
+          token_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scan_logs_token_id_fkey"
+            columns: ["token_id"]
+            isOneToOne: false
+            referencedRelation: "emergency_tokens"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { Shield, Scan, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background gradient */}
@@ -34,10 +36,10 @@ const HeroSection = () => {
               When you can't speak, your phone speaks for you. SafeScan delivers your critical medical identity to first responders instantly — no app download needed.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="bg-emergency hover:bg-emergency-glow text-primary-foreground font-display text-base px-8 h-14 glow-red">
+              <Button size="lg" className="bg-emergency hover:bg-emergency-glow text-primary-foreground font-display text-base px-8 h-14 glow-red" onClick={() => navigate("/auth")}>
                 Get Started Free
               </Button>
-              <Button size="lg" variant="outline" className="border-border hover:bg-secondary font-display text-base px-8 h-14">
+              <Button size="lg" variant="outline" className="border-border hover:bg-secondary font-display text-base px-8 h-14" onClick={() => document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth" })}>
                 See How It Works
               </Button>
             </div>
