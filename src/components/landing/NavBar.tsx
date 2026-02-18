@@ -33,9 +33,21 @@ const NavBar = () => {
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
-          {["Features", "The Process", "How It Works"].map((item) => (
-            <a key={item} href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              {item}
+          {[
+            { label: "Features", href: "#features" },
+            { label: "The Process", href: "#the-process" },
+            { label: "How It Works", href: "#how-it-works" },
+          ].map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector(item.href)?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {item.label}
             </a>
           ))}
         </div>
@@ -56,9 +68,22 @@ const NavBar = () => {
             className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border overflow-hidden"
           >
             <div className="container mx-auto px-6 py-6 flex flex-col gap-4">
-              {["Features", "The Process", "How It Works"].map((item) => (
-                <a key={item} href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors py-2">
-                  {item}
+              {[
+                { label: "Features", href: "#features" },
+                { label: "The Process", href: "#the-process" },
+                { label: "How It Works", href: "#how-it-works" },
+              ].map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMobileOpen(false);
+                    document.querySelector(item.href)?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors py-2"
+                >
+                  {item.label}
                 </a>
               ))}
             </div>
