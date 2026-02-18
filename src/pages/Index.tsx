@@ -259,12 +259,11 @@ const Index = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center"
+            className="grid grid-cols-3 md:grid-cols-3 gap-8 text-center"
           >
             {[
               { value: 3, suffix: "s", label: "Profile Load Time" },
               { value: 100, suffix: "%", label: "Privacy Guaranteed" },
-              { value: 10000, suffix: "+", label: "Profiles Created" },
               { value: 24, suffix: "/7", label: "Always Available" },
             ].map((stat) => (
               <div key={stat.label}>
