@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { User, Droplets, AlertOctagon, Heart, Phone, MapPin, Pill, Shield } from "lucide-react";
+import { useSearchParams } from "react-router-dom";
+import { User, Droplets, AlertOctagon, Heart, Phone, MapPin, Pill, Shield, Loader2 } from "lucide-react";
 
 interface ProfileData {
   fullName: string;
@@ -9,28 +10,80 @@ interface ProfileData {
   organDonor?: boolean;
   allergies?: string[];
   medications?: string[];
+  conditions?: string[];
   contacts: { name: string; phone: string; relationship?: string }[];
 }
 
 const EmergencyView = () => {
+  const [searchParams] = useSearchParams();
   const [profile, setProfile] = useState<ProfileData | null>(null);
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const token = searchParams.get("token");
+    const hash = window.location.hash.slice(1);
+
+    if (token) {
+      // Fetch from edge function
+      fetchFromToken(token);
+    } else if (hash) {
+      // Fallback: decode from hash
+      try {
+        const decoded = decodeURIComponent(atob(hash));
+        const data = JSON.parse(decoded);
+        if (data.fullName && data.bloodGroup && data.contacts) {
+          setProfile(data);
+        } else {
+          setError(true);
+        }
+      } catch {
+        setError(true);
+      }
+      setLoading(false);
+    } else {
+      setError(true);
+      setLoading(false);
+    }
+  }, [searchParams]);
+
+  const fetchFromToken = async (token: string) => {
     try {
-      const hash = window.location.hash.slice(1);
-      if (!hash) { setError(true); return; }
-      const decoded = decodeURIComponent(atob(hash));
-      const data = JSON.parse(decoded);
-      if (data.fullName && data.bloodGroup && data.contacts) {
-        setProfile(data);
+      const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
+      const res = await fetch(
+        `https://${projectId}.supabase.co/functions/v1/get-emergency-profile?token=${token}`,
+        {
+          headers: {
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+        }
+      );
+
+      if (!res.ok) {
+        setError(true);
+        setLoading(false);
+        return;
+      }
+
+      const profileData = await res.json();
+      if (profileData.fullName) {
+        setProfile(profileData);
       } else {
         setError(true);
       }
     } catch {
       setError(true);
     }
-  }, []);
+    setLoading(false);
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#0A0A0F] flex items-center justify-center">
+        <Loader2 className="w-10 h-10 animate-spin text-red-500" />
+      </div>
+    );
+  }
 
   if (error) {
     return (
@@ -54,13 +107,12 @@ const EmergencyView = () => {
 
   return (
     <div className="min-h-screen bg-[#0A0A0F]">
-      {/* Ambient glow */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] rounded-full bg-red-500/8 blur-[120px]" />
       </div>
 
       <div className="relative z-10 max-w-lg mx-auto">
-        {/* Red header banner */}
+        {/* Red header */}
         <div className="bg-gradient-to-r from-red-600 to-red-500 px-6 py-5">
           <div className="flex items-center gap-3">
             <span className="text-3xl">🚨</span>
@@ -71,7 +123,6 @@ const EmergencyView = () => {
           </div>
         </div>
 
-        {/* Profile body */}
         <div className="px-6 py-6 space-y-6">
           {/* Person info */}
           <div className="flex items-center gap-4">
@@ -143,24 +194,20 @@ const EmergencyView = () => {
 
           <div className="h-px bg-white/10" />
 
-          {/* Nearest Emergency Services */}
+          {/* Emergency Services */}
           <div>
             <p className="font-mono text-xs text-gray-500 tracking-widest uppercase mb-3 flex items-center gap-2">
-              <MapPin className="w-3.5 h-3.5 text-red-500" /> Nearest Emergency Services
+              <MapPin className="w-3.5 h-3.5 text-red-500" /> Emergency Services
             </p>
             <div className="space-y-3">
               {[
-                { icon: "🏥", name: "Nearest Hospital", sub: "Search nearby", action: "hospital" },
-                { icon: "🚑", name: "Ambulance", sub: "Call 108", action: "ambulance" },
-                { icon: "🚔", name: "Police", sub: "Call 100", action: "police" },
+                { icon: "🏥", name: "Nearest Hospital", sub: "Search nearby", href: "https://www.google.com/maps/search/hospital+near+me" },
+                { icon: "🚑", name: "Ambulance", sub: "Call 108", href: "tel:108" },
+                { icon: "🚔", name: "Police", sub: "Call 100", href: "tel:100" },
               ].map((s, i) => (
                 <a
                   key={i}
-                  href={
-                    s.action === "ambulance" ? "tel:108" :
-                    s.action === "police" ? "tel:100" :
-                    "https://www.google.com/maps/search/hospital+near+me"
-                  }
+                  href={s.href}
                   className="flex items-center justify-between p-4 rounded-xl border border-white/10 bg-white/5 active:bg-white/10 transition-colors"
                 >
                   <div className="flex items-center gap-3">
@@ -176,7 +223,6 @@ const EmergencyView = () => {
             </div>
           </div>
 
-          {/* Footer */}
           <div className="text-center py-6 space-y-1">
             <p className="text-gray-500 text-xs font-mono">Generated by SafeScan</p>
             <p className="text-gray-600 text-xs">Emergency Medical Identity Platform</p>
