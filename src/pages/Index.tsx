@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Shield, Scan, AlertTriangle, ArrowRight, Smartphone, Hospital, Siren } from "lucide-react";
+import { Shield, Scan, AlertTriangle, ArrowRight, Smartphone, Hospital, Siren, CheckCircle, User, Droplets, AlertOctagon, Heart, Phone, MapPin, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
@@ -184,6 +184,143 @@ const Index = () => {
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Family gets an automatic SMS alert with live GPS. Nearest hospital, ambulance, and police are suggested with real-time ETAs.
               </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Live Demo Section */}
+      <section className="relative z-10 px-6 py-24">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Left: Copy */}
+            <motion.div
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
+              <span className="text-emergency font-mono text-sm tracking-widest uppercase font-semibold">Live Demo</span>
+              <h2 className="text-4xl md:text-5xl font-display font-bold leading-tight mt-4 mb-6">
+                This is what a{" "}
+                <span className="text-gradient-red">First Responder</span>{" "}
+                Sees.
+              </h2>
+              <p className="text-muted-foreground text-lg leading-relaxed mb-10">
+                Scan the QR on any locked phone and this page loads instantly in any browser. Zero friction. Maximum impact.
+              </p>
+
+              <div className="space-y-5">
+                <div className="flex items-start gap-4">
+                  <CheckCircle className="w-6 h-6 text-safe flex-shrink-0 mt-0.5" />
+                  <span className="text-muted-foreground">No app installation required on responder's phone</span>
+                </div>
+                <div className="flex items-start gap-4">
+                  <CheckCircle className="w-6 h-6 text-safe flex-shrink-0 mt-0.5" />
+                  <span className="text-muted-foreground">QR token expires every 60 seconds automatically</span>
+                </div>
+                <div className="flex items-start gap-4">
+                  <CheckCircle className="w-6 h-6 text-safe flex-shrink-0 mt-0.5" />
+                  <span className="text-muted-foreground">Every scan is timestamped and audit-logged</span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Right: Mock Emergency Profile Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+            >
+              <div className="rounded-2xl border border-white/10 overflow-hidden shadow-2xl" style={{ boxShadow: "0 0 80px hsl(var(--emergency) / 0.1)" }}>
+                {/* Red header */}
+                <div className="bg-emergency px-6 py-5">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">🚨</span>
+                    <div>
+                      <h3 className="font-display font-bold text-primary-foreground text-lg tracking-wide uppercase">Emergency Profile</h3>
+                      <p className="text-primary-foreground/80 text-sm">SafeScan Emergency Access • Verified Secure</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Profile body */}
+                <div className="bg-card p-6 space-y-6">
+                  {/* Person info */}
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-full bg-emergency/20 flex items-center justify-center">
+                      <User className="w-7 h-7 text-emergency" />
+                    </div>
+                    <div>
+                      <h4 className="font-display font-bold text-xl uppercase tracking-wide">Arjun Krishna</h4>
+                      <p className="text-muted-foreground text-sm font-mono">DOB: 14 March 1990 · Male · 34 yrs</p>
+                    </div>
+                  </div>
+
+                  <div className="h-px bg-border" />
+
+                  {/* Medical badges */}
+                  <div className="flex flex-wrap gap-3">
+                    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emergency/30 bg-emergency/10 text-emergency font-mono text-sm font-medium">
+                      <Droplets className="w-4 h-4" /> O+ Blood Group
+                    </span>
+                    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-destructive/30 bg-destructive/10 text-destructive font-mono text-sm font-medium">
+                      <AlertOctagon className="w-4 h-4" /> Penicillin Allergy
+                    </span>
+                    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-accent/30 bg-accent/10 text-accent font-mono text-sm font-medium">
+                      <AlertTriangle className="w-4 h-4" /> Diabetic
+                    </span>
+                    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-safe/30 bg-safe/10 text-safe font-mono text-sm font-medium">
+                      <Heart className="w-4 h-4" /> Organ Donor
+                    </span>
+                  </div>
+
+                  {/* Emergency Contacts */}
+                  <div>
+                    <p className="font-mono text-xs text-muted-foreground tracking-widest uppercase mb-3">Emergency Contacts</p>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between p-4 rounded-xl border border-border bg-secondary/30">
+                        <div>
+                          <p className="font-medium">Priya Krishna</p>
+                          <p className="text-sm text-muted-foreground font-mono">Wife · +91 98765 43210</p>
+                        </div>
+                        <button className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-safe text-accent-foreground font-mono text-sm font-bold">
+                          <Phone className="w-4 h-4" /> Call
+                        </button>
+                      </div>
+                      <div className="flex items-center justify-between p-4 rounded-xl border border-border bg-secondary/30">
+                        <div>
+                          <p className="font-medium">Dr. Raman Rao</p>
+                          <p className="text-sm text-muted-foreground font-mono">Physician · +91 98001 12345</p>
+                        </div>
+                        <button className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-safe text-accent-foreground font-mono text-sm font-bold">
+                          <Phone className="w-4 h-4" /> Call
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="h-px bg-border" />
+
+                  {/* Nearest Emergency Services */}
+                  <div>
+                    <p className="font-mono text-xs text-muted-foreground tracking-widest uppercase mb-3 flex items-center gap-2">
+                      <MapPin className="w-3.5 h-3.5 text-emergency" /> Nearest Emergency Services · Kakinada, AP
+                    </p>
+                    <div className="flex items-center justify-between p-4 rounded-xl border border-border bg-secondary/30">
+                      <div className="flex items-center gap-3">
+                        <span className="text-lg">🏥</span>
+                        <div>
+                          <p className="font-medium text-sm">Government General Hospital</p>
+                          <p className="text-xs text-muted-foreground">1.2 km away</p>
+                        </div>
+                      </div>
+                      <span className="px-3 py-1 rounded-full bg-safe/15 text-safe font-mono text-xs font-bold">4 min</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>
