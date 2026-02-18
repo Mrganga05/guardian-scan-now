@@ -4,8 +4,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
-import Auth from "./pages/Auth";
-import Dashboard from "./pages/Dashboard";
+import ProfileForm from "./pages/ProfileForm";
+import QRCodePage from "./pages/QRCodePage";
+import SOSMode from "./pages/SOSMode";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -18,9 +19,9 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/profile" element={<ProfileForm />} />
+          <Route path="/qr" element={<QRCodePage />} />
+          <Route path="/sos" element={<SOSMode />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
