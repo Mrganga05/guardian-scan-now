@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Shield, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
@@ -6,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const NavBar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
@@ -36,7 +38,7 @@ const NavBar = () => {
               {item}
             </a>
           ))}
-          <Button size="sm" className="bg-emergency hover:bg-emergency-glow text-primary-foreground font-display">
+          <Button size="sm" className="bg-emergency hover:bg-emergency-glow text-primary-foreground font-display" onClick={() => navigate("/auth")}>
             Get Started
           </Button>
         </div>
@@ -62,7 +64,7 @@ const NavBar = () => {
                   {item}
                 </a>
               ))}
-              <Button className="bg-emergency hover:bg-emergency-glow text-primary-foreground font-display w-full">
+              <Button className="bg-emergency hover:bg-emergency-glow text-primary-foreground font-display w-full" onClick={() => navigate("/auth")}>
                 Get Started
               </Button>
             </div>
