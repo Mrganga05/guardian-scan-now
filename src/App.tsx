@@ -1,14 +1,16 @@
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import ProfileForm from "./pages/ProfileForm";
-import QRCodePage from "./pages/QRCodePage";
-import SOSMode from "./pages/SOSMode";
-import EmergencyView from "./pages/EmergencyView";
-import NotFound from "./pages/NotFound";
+
+const Index = lazy(() => import("./pages/Index"));
+const ProfileForm = lazy(() => import("./pages/ProfileForm"));
+const QRCodePage = lazy(() => import("./pages/QRCodePage"));
+const SOSMode = lazy(() => import("./pages/SOSMode"));
+const EmergencyView = lazy(() => import("./pages/EmergencyView"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
 
@@ -18,14 +20,16 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/profile" element={<ProfileForm />} />
-          <Route path="/qr" element={<QRCodePage />} />
-          <Route path="/emergency" element={<EmergencyView />} />
-          <Route path="/sos" element={<SOSMode />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Suspense fallback={null}>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/profile" element={<ProfileForm />} />
+            <Route path="/qr" element={<QRCodePage />} />
+            <Route path="/emergency" element={<EmergencyView />} />
+            <Route path="/sos" element={<SOSMode />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
