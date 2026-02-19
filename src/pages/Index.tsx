@@ -35,7 +35,7 @@ const AnimatedCounter = ({ target, suffix = "", duration = 2 }: { target: number
 /* ── Floating particles ── */
 const FloatingParticles = () => (
   <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-    {Array.from({ length: 20 }).map((_, i) => (
+    {Array.from({ length: 8 }).map((_, i) => (
       <motion.div
         key={i}
         className="absolute rounded-full"
@@ -49,14 +49,15 @@ const FloatingParticles = () => (
             : i % 3 === 1
             ? "hsl(var(--safe) / 0.2)"
             : "hsl(var(--foreground) / 0.08)",
+          willChange: "transform, opacity",
         }}
         animate={{
-          y: [0, -(Math.random() * 100 + 50), 0],
-          x: [0, (Math.random() - 0.5) * 60, 0],
-          opacity: [0, 0.8, 0],
+          y: [0, -(Math.random() * 80 + 40), 0],
+          x: [0, (Math.random() - 0.5) * 40, 0],
+          opacity: [0, 0.6, 0],
         }}
         transition={{
-          duration: Math.random() * 6 + 6,
+          duration: Math.random() * 8 + 8,
           repeat: Infinity,
           delay: Math.random() * 5,
           ease: "easeInOut",
@@ -81,13 +82,15 @@ const HeartbeatLine = () => (
   </svg>
 );
 
+const smoothEase = [0.22, 1, 0.36, 1] as const;
+
 const stagger = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.12 } },
+  show: { transition: { staggerChildren: 0.1 } },
 };
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const } },
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: smoothEase } },
 };
 
 const Index = () => {
@@ -105,13 +108,15 @@ const Index = () => {
       <div className="fixed inset-0 pointer-events-none z-0">
         <motion.div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full bg-emergency/5 blur-[150px]"
-          animate={{ scale: [1, 1.15, 1], opacity: [0.4, 0.7, 0.4] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          style={{ willChange: "transform, opacity" }}
+          animate={{ scale: [1, 1.1, 1], opacity: [0.4, 0.6, 0.4] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
           className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-safe/3 blur-[120px]"
-          animate={{ scale: [1, 1.2, 1], x: [0, 30, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          style={{ willChange: "transform" }}
+          animate={{ scale: [1, 1.15, 1], x: [0, 20, 0] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         />
         {/* Grid overlay */}
         <div
@@ -431,12 +436,12 @@ const Index = () => {
             ].map((item, i) => (
               <motion.div
                 key={item.step}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.15 }}
-                whileHover={{ y: -6 }}
-                className="glass-card text-center flex flex-col items-center gap-4 relative group"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.12, ease: smoothEase }}
+              whileHover={{ y: -6, transition: { duration: 0.3, ease: smoothEase } }}
+              className="glass-card text-center flex flex-col items-center gap-4 relative group"
               >
                 <span className="font-mono text-emergency/50 text-sm font-bold">{item.step}</span>
                 <motion.div
@@ -503,11 +508,11 @@ const Index = () => {
 
             {/* Mock Emergency Profile Card */}
             <motion.div
-              initial={{ opacity: 0, y: 50, rotateY: 10 }}
+              initial={{ opacity: 0, y: 40, rotateY: 8 }}
               whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.9, delay: 0.2 }}
-              whileHover={{ y: -8 }}
+              transition={{ duration: 0.7, delay: 0.15, ease: smoothEase }}
+              whileHover={{ y: -6, transition: { duration: 0.3, ease: smoothEase } }}
             >
               <div
                 className="rounded-2xl border border-white/10 overflow-hidden shadow-2xl"
@@ -586,7 +591,7 @@ const Index = () => {
                       ].map((contact) => (
                         <motion.div
                           key={contact.name}
-                          whileHover={{ x: 4 }}
+                          whileHover={{ x: 4, transition: { duration: 0.2, ease: smoothEase } }}
                           className="flex items-center justify-between p-4 rounded-xl border border-border bg-secondary/30"
                         >
                           <div>
@@ -620,7 +625,7 @@ const Index = () => {
                       ].map((svc) => (
                         <motion.div
                           key={svc.name}
-                          whileHover={{ x: 4 }}
+                          whileHover={{ x: 4, transition: { duration: 0.2, ease: smoothEase } }}
                           className="flex items-center justify-between p-4 rounded-xl border border-border bg-secondary/30"
                         >
                           <div className="flex items-center gap-3">
@@ -687,7 +692,7 @@ const Index = () => {
                   { icon: PhoneCall, title: "Auto-Call Sequence", desc: "Calls emergency contact 1 → 2 → local emergency services if unanswered" },
                   { icon: Volume2, title: "Emergency Beacon", desc: "110dB repeating alarm that overrides silent/vibrate mode until cancelled" },
                 ].map(({ icon: Icon, title, desc }) => (
-                  <motion.div key={title} variants={fadeUp} className="flex items-start gap-4 group" whileHover={{ x: 6 }}>
+                  <motion.div key={title} variants={fadeUp} className="flex items-start gap-4 group" whileHover={{ x: 6, transition: { duration: 0.2, ease: smoothEase } }}>
                     <motion.div
                       className="w-10 h-10 rounded-xl bg-emergency/15 flex items-center justify-center flex-shrink-0 group-hover:bg-emergency/25 transition-colors"
                       whileHover={{ rotate: 10 }}
