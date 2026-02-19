@@ -296,7 +296,7 @@ const Index = () => {
                         transition={{ duration: 3, repeat: Infinity }}
                       >
                         <QRCodeSVG
-                          value={"🚨 EMERGENCY PROFILE\n👤 Kiran\n🩸 O+ Blood\n⚠️ Penicillin Allergy\n💊 Diabetic\n💚 Organ Donor\n📞 Ram: +91 98765 43210\n📞 Dr. Rao: +91 98001 12345\n\nNo internet needed"}
+                          value={"🚨 EMERGENCY PROFILE\n👤 Kiran\n🩸 B+ Blood\n📞 Ram: +91 98765 43210\n📞 Dr. Rao: +91 98001 12345\n\nNo internet needed"}
                           size={120}
                           bgColor="hsl(0, 0%, 95%)"
                           fgColor="hsl(240, 20%, 4%)"
@@ -563,10 +563,7 @@ const Index = () => {
                     className="flex flex-wrap gap-3"
                   >
                     {[
-                      { icon: Droplets, label: "O+ Blood Group", border: "border-emergency/30", bg: "bg-emergency/10", text: "text-emergency" },
-                      { icon: AlertOctagon, label: "Penicillin Allergy", border: "border-destructive/30", bg: "bg-destructive/10", text: "text-destructive" },
-                      { icon: AlertTriangle, label: "Diabetic", border: "border-accent/30", bg: "bg-accent/10", text: "text-accent" },
-                      { icon: Heart, label: "Organ Donor", border: "border-safe/30", bg: "bg-safe/10", text: "text-safe" },
+                      { icon: Droplets, label: "B+ Blood Group", border: "border-emergency/30", bg: "bg-emergency/10", text: "text-emergency" },
                     ].map(({ icon: Icon, label, border, bg, text }) => (
                       <motion.span
                         key={label}
