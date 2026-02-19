@@ -548,7 +548,7 @@ const Index = () => {
                     </motion.div>
                     <div>
                       <h4 className="font-display font-bold text-xl uppercase tracking-wide">Kiran</h4>
-                      <p className="text-muted-foreground text-sm font-mono">DOB: 14 March 1990 · Male · 34 yrs</p>
+                      <p className="text-muted-foreground text-sm font-mono">DOB: 04 January 2004 · Male · 22 yrs</p>
                     </div>
                   </div>
 
