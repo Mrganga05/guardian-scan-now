@@ -296,7 +296,7 @@ const Index = () => {
                         transition={{ duration: 3, repeat: Infinity }}
                       >
                         <QRCodeSVG
-                          value={"🚨 EMERGENCY PROFILE\n👤 Arjun Krishna\n🩸 O+ Blood\n⚠️ Penicillin Allergy\n💊 Diabetic\n💚 Organ Donor\n📞 Priya: +91 98765 43210\n📞 Dr. Rao: +91 98001 12345\n\nNo internet needed"}
+                          value={"🚨 EMERGENCY PROFILE\n👤 Kiran\n🩸 O+ Blood\n⚠️ Penicillin Allergy\n💊 Diabetic\n💚 Organ Donor\n📞 Ram: +91 98765 43210\n📞 Dr. Rao: +91 98001 12345\n\nNo internet needed"}
                           size={120}
                           bgColor="hsl(0, 0%, 95%)"
                           fgColor="hsl(240, 20%, 4%)"
@@ -547,7 +547,7 @@ const Index = () => {
                       <User className="w-7 h-7 text-emergency" />
                     </motion.div>
                     <div>
-                      <h4 className="font-display font-bold text-xl uppercase tracking-wide">Arjun Krishna</h4>
+                      <h4 className="font-display font-bold text-xl uppercase tracking-wide">Kiran</h4>
                       <p className="text-muted-foreground text-sm font-mono">DOB: 14 March 1990 · Male · 34 yrs</p>
                     </div>
                   </div>
@@ -584,7 +584,7 @@ const Index = () => {
                     <p className="font-mono text-xs text-muted-foreground tracking-widest uppercase mb-3">Emergency Contacts</p>
                     <div className="space-y-3">
                       {[
-                        { name: "Priya Krishna", role: "Wife · +91 98765 43210" },
+                        { name: "Ram", role: "Father · +91 98765 43210" },
                         { name: "Dr. Raman Rao", role: "Physician · +91 98001 12345" },
                       ].map((contact) => (
                         <motion.div
