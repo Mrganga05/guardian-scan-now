@@ -229,7 +229,7 @@ const QRCodePage = () => {
             ) : qrUrl ? (
               <div className="pulse-ring p-1">
                 <div className="bg-white rounded-2xl p-4 glow-red">
-                  <QRCodeSVG id="qr-svg" value={buildHybridQrContent(profile, qrUrl)} size={200} level="M" bgColor="#ffffff" fgColor="#000000" />
+                  <QRCodeSVG id="qr-svg" value={buildQrUrl(profile, qrUrl)} size={200} level="M" bgColor="#ffffff" fgColor="#000000" />
                 </div>
               </div>
             ) : null}
