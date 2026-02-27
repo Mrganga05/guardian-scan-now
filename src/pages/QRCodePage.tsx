@@ -18,30 +18,28 @@ interface ProfileData {
   contacts: { name: string; phone: string; relationship?: string }[];
 }
 
-/** Build hybrid QR content: plain-text emergency info + online link */
-const buildHybridQrContent = (profile: ProfileData, onlineUrl: string | null): string => {
-  const lines: string[] = [
-    "SAFESCAN EMERGENCY",
-    "",
-    `Name: ${profile.fullName}`,
-    `Blood: ${profile.bloodGroup}`,
-  ];
-  if (profile.allergies?.length) {
-    lines.push(`Allergies: ${profile.allergies.join(", ")}`);
-  }
-  if (profile.medications?.length) {
-    lines.push(`Meds: ${profile.medications.join(", ")}`);
-  }
-  if (profile.contacts.length > 0) {
-    lines.push("");
-    profile.contacts.forEach((c) => {
-      lines.push(`${c.relationship ? c.relationship + ": " : ""}${c.name} ${c.phone}`);
-    });
-  }
+/** Build QR content: a URL with offline data embedded in the hash */
+const buildQrUrl = (profile: ProfileData, onlineUrl: string | null): string => {
+  // Encode essential offline data into the hash so EmergencyView can decode it without internet
+  const offlineData = {
+    fullName: profile.fullName,
+    bloodGroup: profile.bloodGroup,
+    allergies: profile.allergies || [],
+    medications: profile.medications || [],
+    contacts: profile.contacts.map((c) => ({
+      name: c.name,
+      phone: c.phone,
+      relationship: c.relationship,
+    })),
+  };
+  const encoded = btoa(encodeURIComponent(JSON.stringify(offlineData)));
+
   if (onlineUrl) {
-    lines.push("", "Full Profile:", onlineUrl);
+    // If online URL has a token, append hash with offline data
+    return `${onlineUrl}#${encoded}`;
   }
-  return lines.join("\n");
+  // Fallback: hash-only URL
+  return `${window.location.origin}/emergency#${encoded}`;
 };
 
 const QRCodePage = () => {
@@ -231,7 +229,7 @@ const QRCodePage = () => {
             ) : qrUrl ? (
               <div className="pulse-ring p-1">
                 <div className="bg-white rounded-2xl p-4 glow-red">
-                  <QRCodeSVG id="qr-svg" value={buildHybridQrContent(profile, qrUrl)} size={200} level="M" bgColor="#ffffff" fgColor="#000000" />
+                  <QRCodeSVG id="qr-svg" value={buildQrUrl(profile, qrUrl)} size={200} level="M" bgColor="#ffffff" fgColor="#000000" />
                 </div>
               </div>
             ) : null}
