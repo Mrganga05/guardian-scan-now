@@ -50,7 +50,7 @@ const EmergencyView = () => {
     setLoading(false);
   };
 
-  const fetchFromToken = async (token: string) => {
+  const fetchFromToken = async (token: string, hashFallback?: string) => {
     try {
       const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
       const res = await fetch(
@@ -63,6 +63,11 @@ const EmergencyView = () => {
       );
 
       if (!res.ok) {
+        // If online fails but we have hash data, use offline fallback
+        if (hashFallback) {
+          decodeHashData(hashFallback);
+          return;
+        }
         setError(true);
         setLoading(false);
         return;
@@ -71,10 +76,18 @@ const EmergencyView = () => {
       const profileData = await res.json();
       if (profileData.fullName) {
         setProfile(profileData);
+      } else if (hashFallback) {
+        decodeHashData(hashFallback);
+        return;
       } else {
         setError(true);
       }
     } catch {
+      // Network error — try offline fallback
+      if (hashFallback) {
+        decodeHashData(hashFallback);
+        return;
+      }
       setError(true);
     }
     setLoading(false);
