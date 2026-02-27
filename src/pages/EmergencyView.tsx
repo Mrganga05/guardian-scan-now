@@ -25,27 +25,30 @@ const EmergencyView = () => {
     const hash = window.location.hash.slice(1);
 
     if (token) {
-      // Fetch from edge function
-      fetchFromToken(token);
+      // Try online fetch first; if it fails and we have hash data, use that as fallback
+      fetchFromToken(token, hash);
     } else if (hash) {
-      // Fallback: decode from hash
-      try {
-        const decoded = decodeURIComponent(atob(hash));
-        const data = JSON.parse(decoded);
-        if (data.fullName && data.bloodGroup && data.contacts) {
-          setProfile(data);
-        } else {
-          setError(true);
-        }
-      } catch {
-        setError(true);
-      }
-      setLoading(false);
+      decodeHashData(hash);
     } else {
       setError(true);
       setLoading(false);
     }
   }, [searchParams]);
+
+  const decodeHashData = (hash: string) => {
+    try {
+      const decoded = decodeURIComponent(atob(hash));
+      const data = JSON.parse(decoded);
+      if (data.fullName && data.bloodGroup && data.contacts) {
+        setProfile(data);
+      } else {
+        setError(true);
+      }
+    } catch {
+      setError(true);
+    }
+    setLoading(false);
+  };
 
   const fetchFromToken = async (token: string) => {
     try {
