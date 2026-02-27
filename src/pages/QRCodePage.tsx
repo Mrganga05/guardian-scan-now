@@ -18,6 +18,32 @@ interface ProfileData {
   contacts: { name: string; phone: string; relationship?: string }[];
 }
 
+/** Build hybrid QR content: plain-text emergency info + online link */
+const buildHybridQrContent = (profile: ProfileData, onlineUrl: string | null): string => {
+  const lines: string[] = [
+    "SAFESCAN EMERGENCY",
+    "",
+    `Name: ${profile.fullName}`,
+    `Blood: ${profile.bloodGroup}`,
+  ];
+  if (profile.allergies?.length) {
+    lines.push(`Allergies: ${profile.allergies.join(", ")}`);
+  }
+  if (profile.medications?.length) {
+    lines.push(`Meds: ${profile.medications.join(", ")}`);
+  }
+  if (profile.contacts.length > 0) {
+    lines.push("");
+    profile.contacts.forEach((c) => {
+      lines.push(`${c.relationship ? c.relationship + ": " : ""}${c.name} ${c.phone}`);
+    });
+  }
+  if (onlineUrl) {
+    lines.push("", "Full Profile:", onlineUrl);
+  }
+  return lines.join("\n");
+};
+
 const QRCodePage = () => {
   const navigate = useNavigate();
   const [profile, setProfile] = useState<ProfileData | null>(null);
@@ -205,7 +231,7 @@ const QRCodePage = () => {
             ) : qrUrl ? (
               <div className="pulse-ring p-1">
                 <div className="bg-white rounded-2xl p-4 glow-red">
-                  <QRCodeSVG id="qr-svg" value={qrUrl} size={200} level="M" bgColor="#ffffff" fgColor="#000000" />
+                  <QRCodeSVG id="qr-svg" value={buildHybridQrContent(profile, qrUrl)} size={200} level="M" bgColor="#ffffff" fgColor="#000000" />
                 </div>
               </div>
             ) : null}
